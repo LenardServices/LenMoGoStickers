@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------
+ * Brand tokens — change colors and fonts here.
+ * Usable as Tailwind classes, e.g. bg-navy-900, text-gold-400.
+ * ---------------------------------------------------------- */
+@theme {
+  --font-display: "Fredoka", ui-rounded, "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --color-navy-950: #050c1f;
+  --color-navy-900: #0a1633;
+  --color-navy-800: #0f2047;
+  --color-navy-700: #162d63;
+
+  --color-royal-300: #93b4ff;
+  --color-royal-400: #5b8cff;
+  --color-royal-500: #2f6bff;
+  --color-royal-600: #1d55e6;
+  --color-royal-700: #1a43b8;
+
+  --color-gold-200: #ffe9a8;
+  --color-gold-300: #ffd863;
+  --color-gold-400: #fcc934;
+  --color-gold-500: #f5b81b;
+  --color-gold-600: #d99a06;
+
+  /* One page-load moment: the hero medallion, cards and dice settle into place once.
+     Uses `transform`, so it combines with Tailwind's rotate-* (the separate `rotate` property). */
+  --animate-settle: settle 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes settle {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.94);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Faint board-game grid used on dark sections */
+@utility board-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem; /* keeps section titles clear of the sticky header */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-slate-700 antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-gold-400);
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
